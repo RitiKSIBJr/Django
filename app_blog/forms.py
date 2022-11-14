@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post,Comment
+from app_blog.models import Post,Comment
 
 class PostForm(forms.ModelForm):
 
@@ -12,7 +12,8 @@ class PostForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'placeholder': 'Title', 'class': ' Title'}),
             'text': forms.Textarea(attrs={'placeholder':'Content', 'class': 'editable meduim-post-post contentpost'})
         }
-
+        
+        
 class CommentFrom(forms.ModelForm):
 
     class Meta():

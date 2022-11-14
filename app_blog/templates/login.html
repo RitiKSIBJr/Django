@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="jumbotro">
+<div class="jumbotron">
     <h2>Please Login:</h2>
     <h3>(Must be a superuser, please check with the site admin)</h3>
     
@@ -10,11 +10,11 @@
         <p>Your username and password didn't match! Please try again.</p>
     {% endif %}
 
-    <form action="{% url 'login' %}" method="Post">
+    <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
-        {% from.as_p %}
-            <input type="submit" class="btn btn-primary" value="login">
-            <input type="hidden" name="next" value="{{next}}">
+        {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Login">
+            <input type="hidden" name="home" value="/">
     </form>
 </div>
 

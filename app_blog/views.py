@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Comment, Post
+from app_blog.models import Comment, Post
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .forms import PostForm, CommentFrom
+from app_blog.forms import PostForm, CommentFrom
 from django.views.generic import (CreateView, DeleteView, 
                                     DetailView, UpdateView,
                                     TemplateView, ListView)
@@ -15,6 +15,7 @@ from django.views.generic import (CreateView, DeleteView,
 class PostListView(ListView):
 
     model = Post
+    template_name = 'post_list.html'
 
     def get_queryset(self):
         return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
@@ -33,16 +34,19 @@ class AboutView(TemplateView):
 
 
 #--------------------CREATE POST-----------------------------
-class CreatePostView(CreateView, login_required):
+
+class CreatePostView(CreateView):
     login_url = 'login/'
     redirect_field_name = 'post_detail.html'
 
-    from_class = PostForm
+    form_class = PostForm
 
     model = Post
+    template_name = 'post_form.html'
 
 #----------------UPDATE POST----------------------
-class UpdatePostView(UpdateView, login_required):
+
+class UpdatePostView(UpdateView):
 
     login_url = 'login/'
     redirect_field_name = 'post_detail.html'
@@ -52,21 +56,25 @@ class UpdatePostView(UpdateView, login_required):
     model = Post
 
 #--------------DELETE POST--------------------
-class DeletePostView(DeleteView, login_required):
+
+class DeletePostView(DeleteView):
 
     model = Post
 
     success_url = reverse_lazy('post_list')
 
-class DraftListView(ListView, login_required):
+
+class DraftListView(ListView):
 
     login_url = 'login/'
     redirect_field_name = 'post_list.html'
 
     model = Post
 
+    template_name = 'post_draft_list.html'
+
     def get_queryset(self):
-        return  Post.objects.filter(published_date__isnull = True).order_by('creadted_date')
+        return  Post.objects.filter(published_date__isnull = True).order_by('created_date')
 
 
 ###########################################################################################

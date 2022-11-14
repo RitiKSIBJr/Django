@@ -2,7 +2,7 @@
 {% load static %}
 <html>
     <head>
-        <title>First Clone</title>
+        <title>Express</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
@@ -18,27 +18,29 @@
     </head>
     <body>
 
-        <nav class="navbar navbar-default techfont custom-navbar">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark techfont custom-navbar">
 
             <div class="container">
 
                 <ul class="nav navbar-nav">
-                    <li><a href="{% url  post_list %}" class="navbar-brand bigbrand">New BLoG</a></li>
-                    <li><a href="{% %}" class="">About</a></li>
-                    <li><a href="{% %}" class="">Github</a></li>
-                    <li><a href="{% %}" class="">LinkedIn</a></li>
+                    <li><a href="{% url  'home' %}" class="navbar-brand bigbrand">EXPRESS</a></li>
+                    <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+                    <li><a href="https://www.github.com" class="nav-link">Github</a></li>
+                    <li><a href="https://wwww.facebook.com" class="nav-link">LinkedIn</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    {% if user.is_aunthenciated %}
+                    {% if user.is_authenticated %}
 
-                    <li><a href="{% url 'post_new' %}">New Post</a></li>
-                    <li><a href="{% url 'post_draft_list' %}">Drafts</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
-                    <li><a href="">Welcom: {{user.username}}</a></li>
+                    <li><a href="{% url 'create' %}" class="nav-link">New Post</a></li>
+                    <li><a href="{% url 'draft' %}" class="nav-link">Drafts</a></li>
+                    <li><a href="{% url 'logout' %}" class="nav-link">Log Out</a></li>
+                    <li><a href="" class="nav-link active">{{user.username}}</a></li>
 
                     {% else %}
-                    <li><a href="{% url 'login' %}" class="nav navbar-right"><span class="glyphicon glyphicon-user"></span></a></li>
+                    <li><a href="{% url 'login' %}" class="btn btn-info btn-lg">
+                        <span class="glyphicon glyphicon-user"></span> User 
+                      </a></li>
 
                     {% endif %}
                 </ul>
@@ -47,7 +49,7 @@
 
         </nav>
         
-        <div class="content container">
+        <div class="content container p-3 my-3 bg-dark text-white">
             <div class="row">
                 <div class="col-md-8">
                     <div class="blog_posts">
