@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <form method="post">
+        {% csrf_tolen %}
+        <p>Are you sure you wnat to delete {{object}}</p>
+        <input type="submit" class="btn btn-danger" value="Delete">
+    </form>
 {% endblock %}
