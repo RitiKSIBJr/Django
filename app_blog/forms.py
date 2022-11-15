@@ -8,7 +8,7 @@ class PostForm(forms.ModelForm):
         fields = ('author', 'title', 'text')
 
         widgets = {
-            'author': forms.TextInput(attrs={'placeholder': 'Author Name', 'class': 'author'}),
+            # 'author': forms.TextInput(attrs={'placeholder': 'Author Name', 'class': 'author'}),
             'title': forms.TextInput(attrs={'placeholder': 'Title', 'class': ' Title'}),
             'text': forms.Textarea(attrs={'placeholder':'Content', 'class': 'editable meduim-post-post contentpost'})
         }

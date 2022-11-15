@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from app_blog.models import Comment, Post
 from django.utils import timezone
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from app_blog.forms import PostForm, CommentFrom
@@ -24,8 +25,13 @@ class PostListView(ListView):
 #---------------BLOG-------------------------
 class PostDetailView(DetailView):
 
-    model = Post   
+    model = Post 
+    template_name = 'post_detail.html'  
 
+    # def get_context_data(self, **kwargs):
+    #     ctx = super().get_context_data(**kwargs)
+    #     ctx['post'] = Post.objects.filter(pk=self.get_object().pk)
+    
 
 #-------------------ABOUT----------------------------------------
 class AboutView(TemplateView):
@@ -37,12 +43,15 @@ class AboutView(TemplateView):
 
 class CreatePostView(CreateView):
     login_url = 'login/'
-    redirect_field_name = 'post_detail.html'
+    # redirect_field_name = 'detail'
 
     form_class = PostForm
 
     model = Post
     template_name = 'post_form.html'
+
+    def get_success_url(self):
+        return reverse('post_detail', kwargs={'pk': self.object.pk})
 
 #----------------UPDATE POST----------------------
 
@@ -55,13 +64,17 @@ class UpdatePostView(UpdateView):
 
     model = Post
 
+    template_name = 'post_form.html'
+
 #--------------DELETE POST--------------------
 
 class DeletePostView(DeleteView):
 
     model = Post
 
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy('home')
+
+    template_name = 'post_confrim_delete.html'
 
 
 class DraftListView(ListView):
